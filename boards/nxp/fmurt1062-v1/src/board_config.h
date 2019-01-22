@@ -39,6 +39,8 @@
 
 #pragma once
 
+#define ON_EVK // For Board Bring up before BIG Board on IMXRT1060-EVK
+
 /****************************************************************************************************
  * Included Files
  ****************************************************************************************************/
@@ -227,6 +229,15 @@
 
 /* Define GPIO pins used as ADC N.B. Channel numbers are for reference, */
 
+#if defined(ON_EVK)
+#define PX4_ADC_GPIO  \
+	/* J23-2 BATTERY1_VOLTAGE       GPIO_AD_B1_11 GPIO1 Pin 27 */  ADC1_GPIO(0,  27),  \
+	/* J23-3 HW_VER_SENSE           GPIO_AD_B1_04 GPIO1 Pin 20 */  ADC1_GPIO(9,  20),  \
+	/* J23-4 SCALED_V5              GPIO_AD_B1_05 GPIO1 Pin 21 */  ADC1_GPIO(10, 21), \
+	/* J22-2 SCALED_VDD_3V3_SENSORS GPIO_AD_B1_06 GPIO1 Pin 22 */  ADC1_GPIO(11, 22), \
+	/* J22-4 HW_REV_SENSE           GPIO_AD_B1_08 GPIO1 Pin 24 */  ADC1_GPIO(13, 24), \
+	/* J23-1 RSSI_IN                GPIO_AD_B1_10 GPIO1 Pin 26 */  ADC1_GPIO(15, 26)
+#else
 #define PX4_ADC_GPIO  \
 	/* BATTERY1_VOLTAGE       GPIO_AD_B1_11 GPIO1 Pin 27 */  ADC1_GPIO(0,  27),  \
 	/* BATTERY1_CURRENT       GPIO_AD_B0_12 GPIO1 Pin 12 */  ADC1_GPIO(1,  12),  \
@@ -239,6 +250,7 @@
 	/* HW_REV_SENSE           GPIO_AD_B1_08 GPIO1 Pin 24 */  ADC1_GPIO(13, 24), \
 	/* SPARE_1                GPIO_AD_B1_09 GPIO1 Pin 25 */  ADC1_GPIO(14, 25), \
 	/* RSSI_IN                GPIO_AD_B1_10 GPIO1 Pin 26 */  ADC1_GPIO(15, 26)
+#endif // defined(ON_EVK)
 
 /* Define Channel numbers must match above GPIO pin IN(n)*/
 
@@ -541,6 +553,12 @@
 		GPIO_GPIO0_INPUT, \
 	}
 
+#if defined(ON_EVK)
+#define PX4_GPIO_INIT_LIST { \
+		PX4_ADC_GPIO,            \
+	}
+
+#else
 #define PX4_GPIO_INIT_LIST { \
 		PX4_ADC_GPIO,                     \
 		GPIO_HW_REV_DRIVE,                \
@@ -569,6 +587,7 @@
 		GPIO_nSAFETY_SWITCH_LED_OUT_INIT, \
 		GPIO_SAFETY_SWITCH_IN             \
 	}
+#endif //defined(ON_EVK)
 
 __BEGIN_DECLS
 
