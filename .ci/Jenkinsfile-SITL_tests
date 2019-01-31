@@ -17,7 +17,7 @@ pipeline {
 
       agent {
         docker {
-          image 'px4io/px4-dev-ros-kinetic:2018-09-11'
+          image 'px4io/px4-dev-ros-kinetic:2019-01-31'
           args '-e CCACHE_BASEDIR=$WORKSPACE -v ${CCACHE_DIR}:${CCACHE_DIR}:rw -e HOME=$WORKSPACE --cap-add SYS_PTRACE --entrypoint=""'
         }
       }
@@ -218,7 +218,7 @@ def createTestNode(Map test_def) {
   return {
     node {
       cleanWs()
-      docker.image("px4io/px4-dev-ros-kinetic:2018-09-11").inside('-e HOME=${WORKSPACE} --cap-add SYS_PTRACE --entrypoint=""') {
+      docker.image("px4io/px4-dev-ros-kinetic:2019-01-31").inside('-e HOME=${WORKSPACE} --cap-add SYS_PTRACE --entrypoint=""') {
         stage(test_def.name) {
           def run_script = test_def.get('run_script', 'rostest_px4_run.sh')
           def test_ok = true
