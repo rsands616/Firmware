@@ -141,7 +141,10 @@ then
 	param set MPC_ACC_HOR_MAX 3
 
 	param set NAV_ACC_RAD 2
-	param set NAV_DLL_ACT 2
+
+	# don't react on data link or RC loss, no risk in simulation
+	param set NAV_DLL_ACT 0
+	param set NAV_RCL_ACT 0
 
 	param set RTL_DESCEND_ALT 5
 	param set RTL_LAND_DELAY 5
