@@ -33,7 +33,8 @@ else()
 	add_library(lockstep_scheduler
 		src/lockstep_scheduler.cpp
 	)
-	include_directories(
+	target_include_directories(lockstep_scheduler
+	PUBLIC
 		include
 	)
 
