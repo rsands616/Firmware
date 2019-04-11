@@ -14,7 +14,6 @@ fi
 
 SRC_DIR=$1
 BUILD_DIR=$2
-
 # setup Gazebo env and update package path
 export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:${BUILD_DIR}/build_gazebo
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:${SRC_DIR}/Tools/sitl_gazebo/models
